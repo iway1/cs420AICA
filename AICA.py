@@ -12,10 +12,11 @@ class AICA:
         self.R1 = R1
         self.R2 = R2
         self.N = N
-        self.init_cells()
-    def init_cells(self):
+        self.cells = self.random_cells()
+
+    def random_cells(self):
         from random import randint
-        self.cells = []
+        cells = []
         for i in range(self.N):
             new_row = []
             for _ in range(self.N):
@@ -23,8 +24,21 @@ class AICA:
                 if new_element == 0:
                     new_element = -1
                 new_row.append(new_element)
-            self.cells.append(new_row)
-        self.cells = numpy.array(self.cells)
+            cells.append(new_row)
+        return numpy.array(cells)
+
+    def random_cell_coords(self):
+        
+
+    def update_cells(self):
+        updated = numpy.zeros([self.N, self.N])
+        n_updated = 0
+
+        while n_updated < self.N*self.N:
+
+
+            n_updated += 1
+
 
     def distance(self, cell_1, cell_2):
         dist_y = abs(cell_1[0] - cell_2[0])
@@ -47,6 +61,8 @@ class AICA:
         self.cells[key] = value
     def __str__(self):
         return str(self.cells)
+
+
 
 if __name__ == '__main__':
     ca = AICA("none", 30, None, None, None, None, None)
