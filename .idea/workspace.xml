@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ceabfd33-a15a-47cc-a54b-f4105022ea2e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/AICA.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AICA.py" afterPath="$PROJECT_DIR$/AICA.py" />
     </list>
     <ignored path="cs420AICA.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,8 +26,8 @@
       <file leaf-file-name="AICA.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/AICA.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.34313726">
-              <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.877451">
+              <caret line="38" column="4" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -56,8 +56,8 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="308" />
-    <option name="y" value="420" />
+    <option name="x" value="47" />
+    <option name="y" value="42" />
     <option name="width" value="1129" />
     <option name="height" value="709" />
   </component>
@@ -125,7 +125,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="308" y="420" width="1129" height="709" extended-state="0" />
+    <frame x="47" y="42" width="1129" height="709" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24977857" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -158,8 +158,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/AICA.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34313726">
-          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.877451">
+          <caret line="38" column="4" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="4" />
           <folding />
         </state>
       </provider>
