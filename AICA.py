@@ -118,9 +118,13 @@ class AICA:
             rows.append(new_row)
         return Image.fromarray(numpy.array(rows, dtype='uint8'), 'RGB')
 
-    def show_image(self):
-        print("Drawing image.")
-        self.get_image().show()
+    def show_image(self, size=(120, 120)):
+        im = self.get_image()
+        im = im.resize(size)
+        im.show()
+
+    
 
 if __name__ == '__main__':
-    ca = AICA("none", 30, None, None, None, None, None)
+    ca = AICA("none", 30, 1., .1, 0, 1, 3)
+    ca.show_image()
