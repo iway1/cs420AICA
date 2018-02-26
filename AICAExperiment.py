@@ -7,7 +7,7 @@ colors = {
     'WHITE': (255, 255, 255)
 }
 
-DEFAULT_SIZE = (120, 120)
+DEFAULT_IMAGE_SIZE = (120, 120)
 
 class AICAExperiment:
     def __init__(self, experiment_id, N, J1, J2, h, R1, R2):
@@ -21,6 +21,7 @@ class AICAExperiment:
         self.cells = self.random_cells()
         self.updated = None
         self.soup = BeautifulSoup("<body></body>","html.parser")
+        self.images = []
 
     def random_cells(self):
         from random import randint
@@ -107,7 +108,7 @@ class AICAExperiment:
     def __str__(self):
         return str(self.cells)
 
-    def get_image(self):
+    def get_image(self, size=DEFAULT_IMAGE_SIZE):
         from PIL import Image
         rows = []
         for r in range(self.N):
@@ -122,30 +123,49 @@ class AICAExperiment:
             rows.append(new_row)
         return Image.fromarray(numpy.array(rows, dtype='uint8'), 'RGB')
 
-    def show_image(self, size=DEFAULT_SIZE):
+    def show_image(self, size=DEFAULT_IMAGE_SIZE):
         im = self.get_image()
         im = im.resize(size)
         im.show()
 
-    def save_image(self, name, size=DEFAULT_SIZE):
+    def save_image(self, name, size=DEFAULT_IMAGE_SIZE):
         import os
+        from PIL import ImageOps
         im = self.get_image()
         im = im.resize(size)
+
+        im = ImageOps.expand(im, border=8, fill='grey')
+        im = ImageOps.expand(im, border=1, fill='black')
+
         if not os.path.isdir("images/" + self.id):
             os.mkdir("images/" + self.id)
         im_str = "images/" + self.id + "/" + name + ".jpg"
         im.save(im_str)
         image_tag = self.soup.new_tag("img", src="../" + im_str)
         self.soup.body.append(image_tag)
-    
-    def save_html(self):
-        with open('html/' + self.id + '.html', 'w+') as f:
-            f.write(str(self.soup))
+
+    def save_gif(self):
+
+    def iterate(self):
+        self.update_cells()
+        self.images.append()
+
+    def iterate_and_save(self, n, verbose=1):
+        if verbose: print("Starting iterating and saving.")
+
+        for i in range(n):
+            if verbose: print("Update iteration {}.".format(i))
+            self.update_cells()
+            self.save_image("img{}".format(i))
+            if verbose: print("Saved.")
+        if verbose: print("Saving html.")
+        self.save_html()
+
+
 
 if __name__ == '__main__':
-    experiment = AICAExperiment("none", 30, 1., .1, 0, 1, 3)
-    for i in range(10):
-        print("Updating cells for iteration {}.".format(i))
-        experiment.update_cells()
-        print("Finished...")
-    experiment.show_image()
+    experiment = AICAExperiment("test_experiment", 30, 1., -.1, 0, 6, 2)
+
+
+
+    experiment.iterate_and_save(2)
