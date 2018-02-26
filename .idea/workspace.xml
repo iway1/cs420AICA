@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ceabfd33-a15a-47cc-a54b-f4105022ea2e" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/AICA.py" afterPath="$PROJECT_DIR$/AICAExperiment.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AICAExperiment.py" afterPath="$PROJECT_DIR$/AICAExperiment.py" />
     </list>
     <ignored path="cs420AICA.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,8 +26,8 @@
       <file leaf-file-name="AICAExperiment.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/AICAExperiment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.3491273">
-              <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
+            <state vertical-scroll-proportion="0.5137157">
+              <caret line="139" column="4" selection-start-line="139" selection-start-column="4" selection-end-line="139" selection-end-column="4" />
               <folding>
                 <element signature="e#22#34#0" expanded="true" />
               </folding>
@@ -320,8 +319,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/AICAExperiment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.3491273">
-          <caret line="3" column="29" selection-start-line="3" selection-start-column="29" selection-end-line="3" selection-end-column="29" />
+        <state vertical-scroll-proportion="0.5137157">
+          <caret line="139" column="4" selection-start-line="139" selection-start-column="4" selection-end-line="139" selection-end-column="4" />
           <folding>
             <element signature="e#22#34#0" expanded="true" />
           </folding>

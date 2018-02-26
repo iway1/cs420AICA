@@ -7,6 +7,8 @@ colors = {
     'WHITE': (255, 255, 255)
 }
 
+DEFAULT_SIZE = (120, 120)
+
 class AICAExperiment:
     def __init__(self, experiment_id, N, J1, J2, h, R1, R2):
         self.id = experiment_id
@@ -18,7 +20,7 @@ class AICAExperiment:
         self.N = N
         self.cells = self.random_cells()
         self.updated = None
-        self.soup
+        self.soup = BeautifulSoup("<body></body>","html.parser")
 
     def random_cells(self):
         from random import randint
@@ -120,20 +122,25 @@ class AICAExperiment:
             rows.append(new_row)
         return Image.fromarray(numpy.array(rows, dtype='uint8'), 'RGB')
 
-    def show_image(self, size=(120, 120)):
+    def show_image(self, size=DEFAULT_SIZE):
         im = self.get_image()
         im = im.resize(size)
         im.show()
 
-    def save_image(self, name, size=(120, 120)):
+    def save_image(self, name, size=DEFAULT_SIZE):
         import os
         im = self.get_image()
         im = im.resize(size)
         if not os.path.isdir("images/" + self.id):
             os.mkdir("images/" + self.id)
-        im.save("images/" + self.id + "/" + name + ".jpg")
-
-
+        im_str = "images/" + self.id + "/" + name + ".jpg"
+        im.save(im_str)
+        image_tag = self.soup.new_tag("img", src="../" + im_str)
+        self.soup.body.append(image_tag)
+    
+    def save_html(self):
+        with open('html/' + self.id + '.html', 'w+') as f:
+            f.write(str(self.soup))
 
 if __name__ == '__main__':
     experiment = AICAExperiment("none", 30, 1., .1, 0, 1, 3)
