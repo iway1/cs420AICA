@@ -13,6 +13,7 @@ class AICA:
         self.R2 = R2
         self.N = N
         self.cells = self.random_cells()
+        self.updated = None
 
     def random_cells(self):
         from random import randint
@@ -28,17 +29,30 @@ class AICA:
         return numpy.array(cells)
 
     def random_cell_coords(self):
-        
+        # Returns the row and column of a random un-updated cell.
+        from random import randint
+        r = randint(0, self.N - 1)
+        c = randint(0, self.N - 1)
+        while self.updated[r, c]: #Find unupdated cell by searching left-to-right top to bottom, wrapping at the bottom.
+            if c == self.N - 1:
+                r = (r + 1) % self.N
+                c = 0
+            else:
+                c += 1
+        return r, c
+
+    def update_cell(self, r, c):
+        pass
 
     def update_cells(self):
-        updated = numpy.zeros([self.N, self.N])
+        self.updated = numpy.zeros([self.N, self.N])
         n_updated = 0
+        for _ in range(self.N**2):
+            self.update_cell(*self.random_cell_coords())
+        self.assert_finished_update()
 
-        while n_updated < self.N*self.N:
-
-
-            n_updated += 1
-
+    def assert_finished_update(self):
+        assert not (0 in self.updated.unique()), "Not all cells were updated."
 
     def distance(self, cell_1, cell_2):
         dist_y = abs(cell_1[0] - cell_2[0])
