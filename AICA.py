@@ -104,7 +104,7 @@ class AICA:
         return str(self.cells)
 
     def get_image(self):
-        from pillow import Image
+        from PIL import Image
         rows = []
         for r in range(self.N):
             new_row = []
@@ -116,7 +116,11 @@ class AICA:
                 else:
                     raise ValueError("Found bad value at cell {} {}: {}, couldn't create image.".format(r, c, self[r, c]))
             rows.append(new_row)
-        return
+        return Image.fromarray(numpy.array(rows, dtype='uint8'), 'RGB')
+
+    def show_image(self):
+        print("Drawing image.")
+        self.get_image().show()
 
 if __name__ == '__main__':
     ca = AICA("none", 30, None, None, None, None, None)
