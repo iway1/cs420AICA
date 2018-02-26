@@ -57,13 +57,11 @@ class AICAExperiment:
         far_sum = 0
         for check_row, check_col in self.iter_cells():
             dist = self.distance((r, c), (check_row, check_col))
-            if dist < self.R2:
-                if dist >= self.R1:
-                    # Add to far sum
-                    far_sum += self[check_row, check_col]
-                else:
-                    # Add to near sum
-                    near_sum += self[check_row, check_col]
+            if dist < self.R1:
+                near_sum += self[check_row, check_col]
+            elif dist < self.R2:
+                far_sum += self[check_row, check_col]
+
         near_sum *= self.J1
         far_sum *=  self.J2
         final = near_sum + far_sum + self.h
@@ -133,27 +131,26 @@ class AICAExperiment:
         if not os.path.isdir("images/" + self.id):
             os.mkdir("images/" + self.id)
 
-        i = 1
-        while i < len(self.images):
-            if numpy.array_equal(self.images[i - 1], self.images[i]):
-                break
-            i += 1
-
         img_tag = self.soup.new_tag("img", src="../images/{}/timelapse_{}.gif".format(self.id, self.it))
         self.soup.append(img_tag)
-        imageio.mimsave("images/" + self.id + "/timelapse_{}.gif".format(self.it), self.images[:i])
+        imageio.mimsave("images/" + self.id + "/timelapse_{}.gif".format(self.it), self.images)
 
     def iterate(self):
-        for i in range(self.iterations):
+        i = 0
+        while True:
             print("Iteration: {}".format(i))
             self.update_cells()
             self.images.append(numpy.array(self.get_image()))
+            if len(self.images) > 1 and (numpy.array_equal(self.images[len(self.images) - 1], self.images[len(self.images) - 2])):
+                print("AICA converged at iteration {}".format(i))
+                break
+            i += 1
 
     def reset_experiment(self):
         self.images = []
         self.cells = self.random_cells()
 
-    def set_params(self, J1, J2, h, R1, R2, iterations=10):
+    def set_params(self, J1=1.0, J2=-.1, h=0, R1=1, R2=6, iterations=5):
         self.J1 = J1
         self.J2 = J2
         self.h = h
@@ -173,14 +170,12 @@ class AICAExperiment:
     def to_html(self):
         with open('html/{}.html'.format(self.id), 'w') as f:
             f.write(str(self.soup))
-default_experiment = [1., -.1, 0, 6, 2]
-
+#default_experiment = [1., -.1, 0, 6, 2]
+default_experiment = [1., -0.1, 4, 1, 9]
 
 if __name__ == '__main__':
     experiment = AICAExperiment("test_experiment", 30)
     experiment.set_params(*default_experiment)
-    experiment.run()
-    experiment.set_params(*[1., -.2, 0, 6, 2])
     experiment.run()
     experiment.to_html()
 

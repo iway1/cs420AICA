@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ceabfd33-a15a-47cc-a54b-f4105022ea2e" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/test_experiment/img0.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/test_experiment/img1.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/test_experiment/img2.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/test_experiment/img3.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/test_experiment/img4.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/test_experiment/img5.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/test_experiment/img6.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/test_experiment/img7.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/test_experiment/img8.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/test_experiment/timelapse.gif" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/test_experiment/timelapse_0.gif" afterPath="$PROJECT_DIR$/images/test_experiment/timelapse_0.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/images/test_experiment/timelapse_1.gif" afterPath="$PROJECT_DIR$/images/test_experiment/timelapse_1.gif" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AICAExperiment.py" afterPath="$PROJECT_DIR$/AICAExperiment.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/test_experiment.html" afterPath="$PROJECT_DIR$/html/test_experiment.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="cs420AICA.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,12 +29,19 @@
       <file leaf-file-name="AICAExperiment.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/AICAExperiment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35828876">
-              <caret line="131" column="17" selection-start-line="131" selection-start-column="17" selection-end-line="131" selection-end-column="17" />
+            <state vertical-scroll-proportion="-0.72459894">
+              <caret line="145" column="21" selection-start-line="145" selection-start-column="21" selection-end-line="145" selection-end-column="21" />
               <folding>
                 <element signature="e#22#34#0" expanded="true" />
               </folding>
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="timelapse_1.gif" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/images/test_experiment/timelapse_1.gif">
+          <provider selected="true" editor-type-id="images">
+            <state />
           </provider>
         </entry>
       </file>
@@ -88,8 +86,8 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="132" />
-    <option name="y" value="30" />
+    <option name="x" value="63" />
+    <option name="y" value="23" />
     <option name="width" value="1129" />
     <option name="height" value="709" />
   </component>
@@ -342,7 +340,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="132" y="30" width="1129" height="709" extended-state="0" />
+    <frame x="63" y="23" width="1129" height="709" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24977857" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -386,6 +384,11 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/images/test_experiment/timelapse_1.gif">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/images/test_experiment/timelapse_0.gif">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -393,8 +396,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/AICAExperiment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35828876">
-          <caret line="131" column="17" selection-start-line="131" selection-start-column="17" selection-end-line="131" selection-end-column="17" />
+        <state vertical-scroll-proportion="-0.72459894">
+          <caret line="145" column="21" selection-start-line="145" selection-start-column="21" selection-end-line="145" selection-end-column="21" />
           <folding>
             <element signature="e#22#34#0" expanded="true" />
           </folding>
