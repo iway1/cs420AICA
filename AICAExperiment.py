@@ -1,13 +1,13 @@
 __author__ = 'iway1'
 
 import numpy
-
+from bs4 import BeautifulSoup
 colors = {
     'BLACK': (0, 0, 0),
     'WHITE': (255, 255, 255)
 }
 
-class AICA:
+class AICAExperiment:
     def __init__(self, experiment_id, N, J1, J2, h, R1, R2):
         self.id = experiment_id
         self.J1 = J1
@@ -18,6 +18,7 @@ class AICA:
         self.N = N
         self.cells = self.random_cells()
         self.updated = None
+        self.soup
 
     def random_cells(self):
         from random import randint
@@ -70,6 +71,7 @@ class AICA:
             self[r, c] = 1
         else:
             self[r, c] = -1
+        self.updated[r, c] = 1
 
     def update_cells(self):
         self.updated = numpy.zeros([self.N, self.N])
@@ -79,7 +81,7 @@ class AICA:
         self.assert_finished_update()
 
     def assert_finished_update(self):
-        assert not (0 in self.updated.unique()), "Not all cells were updated."
+        assert not (0 in numpy.unique(self.updated)), "Not all cells were updated."
 
     def distance(self, cell_1, cell_2):
         dist_y = abs(cell_1[0] - cell_2[0])
@@ -123,8 +125,20 @@ class AICA:
         im = im.resize(size)
         im.show()
 
-    
+    def save_image(self, name, size=(120, 120)):
+        import os
+        im = self.get_image()
+        im = im.resize(size)
+        if not os.path.isdir("images/" + self.id):
+            os.mkdir("images/" + self.id)
+        im.save("images/" + self.id + "/" + name + ".jpg")
+
+
 
 if __name__ == '__main__':
-    ca = AICA("none", 30, 1., .1, 0, 1, 3)
-    ca.show_image()
+    experiment = AICAExperiment("none", 30, 1., .1, 0, 1, 3)
+    for i in range(10):
+        print("Updating cells for iteration {}.".format(i))
+        experiment.update_cells()
+        print("Finished...")
+    experiment.show_image()
