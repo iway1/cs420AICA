@@ -2,6 +2,10 @@ __author__ = 'iway1'
 
 import numpy
 
+colors = {
+    'BLACK': (0, 0, 0),
+    'WHITE': (255, 255, 255)
+}
 
 class AICA:
     def __init__(self, experiment_id, N, J1, J2, h, R1, R2):
@@ -41,8 +45,31 @@ class AICA:
                 c += 1
         return r, c
 
+    def iter_cells(self):
+        for r in range(self.N):
+            for c in range(self.N):
+                yield r, c
+
+
     def update_cell(self, r, c):
-        pass
+        near_sum = 0
+        far_sum = 0
+        for check_row, check_col in self.iter_cells():
+            dist = self.distance((r, c), (check_row, check_col))
+            if dist < self.R2:
+                if dist >= self.R1:
+                    # Add to far sum
+                    far_sum += self[check_row, check_col]
+                else:
+                    # Add to near sum
+                    near_sum += self[check_row, check_col]
+        near_sum *= self.J1
+        far_sum *=  self.J2
+        final = near_sum + far_sum + self.h
+        if final >= 0:
+            self[r, c] = 1
+        else:
+            self[r, c] = -1
 
     def update_cells(self):
         self.updated = numpy.zeros([self.N, self.N])
@@ -76,7 +103,20 @@ class AICA:
     def __str__(self):
         return str(self.cells)
 
-
+    def get_image(self):
+        from pillow import Image
+        rows = []
+        for r in range(self.N):
+            new_row = []
+            for c in range(self.N):
+                if self[r, c] == 1:
+                    new_row.append(colors['WHITE'])
+                elif self[r, c] == -1:
+                    new_row.append(colors['BLACK'])
+                else:
+                    raise ValueError("Found bad value at cell {} {}: {}, couldn't create image.".format(r, c, self[r, c]))
+            rows.append(new_row)
+        return
 
 if __name__ == '__main__':
     ca = AICA("none", 30, None, None, None, None, None)
