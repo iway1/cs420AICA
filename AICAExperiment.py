@@ -10,18 +10,15 @@ colors = {
 DEFAULT_IMAGE_SIZE = (120, 120)
 
 class AICAExperiment:
-    def __init__(self, experiment_id, N, J1, J2, h, R1, R2):
+    def __init__(self, experiment_id, N):
         self.id = experiment_id
-        self.J1 = J1
-        self.J2 = J2
-        self.h = h
-        self.R1 = R1
-        self.R2 = R2
+        self.it = 0
         self.N = N
         self.cells = self.random_cells()
         self.updated = None
         self.soup = BeautifulSoup("<body></body>","html.parser")
         self.images = []
+        self.params_set = False
 
     def random_cells(self):
         from random import randint
@@ -121,51 +118,70 @@ class AICAExperiment:
                 else:
                     raise ValueError("Found bad value at cell {} {}: {}, couldn't create image.".format(r, c, self[r, c]))
             rows.append(new_row)
-        return Image.fromarray(numpy.array(rows, dtype='uint8'), 'RGB')
+        im = Image.fromarray(numpy.array(rows, dtype='uint8'), 'RGB')
+        im = im.resize(size)
+        return im
 
     def show_image(self, size=DEFAULT_IMAGE_SIZE):
         im = self.get_image()
         im = im.resize(size)
         im.show()
 
-    def save_image(self, name, size=DEFAULT_IMAGE_SIZE):
+    def save_gif(self):
+        import imageio
         import os
-        from PIL import ImageOps
-        im = self.get_image()
-        im = im.resize(size)
-
-        im = ImageOps.expand(im, border=8, fill='grey')
-        im = ImageOps.expand(im, border=1, fill='black')
-
         if not os.path.isdir("images/" + self.id):
             os.mkdir("images/" + self.id)
-        im_str = "images/" + self.id + "/" + name + ".jpg"
-        im.save(im_str)
-        image_tag = self.soup.new_tag("img", src="../" + im_str)
-        self.soup.body.append(image_tag)
 
-    def save_gif(self):
+        i = 1
+        while i < len(self.images):
+            if numpy.array_equal(self.images[i - 1], self.images[i]):
+                break
+            i += 1
+
+        img_tag = self.soup.new_tag("img", src="../images/{}/timelapse_{}.gif".format(self.id, self.it))
+        self.soup.append(img_tag)
+        imageio.mimsave("images/" + self.id + "/timelapse_{}.gif".format(self.it), self.images[:i])
 
     def iterate(self):
-        self.update_cells()
-        self.images.append()
-
-    def iterate_and_save(self, n, verbose=1):
-        if verbose: print("Starting iterating and saving.")
-
-        for i in range(n):
-            if verbose: print("Update iteration {}.".format(i))
+        for i in range(self.iterations):
+            print("Iteration: {}".format(i))
             self.update_cells()
-            self.save_image("img{}".format(i))
-            if verbose: print("Saved.")
-        if verbose: print("Saving html.")
-        self.save_html()
+            self.images.append(numpy.array(self.get_image()))
 
+    def reset_experiment(self):
+        self.images = []
+        self.cells = self.random_cells()
+
+    def set_params(self, J1, J2, h, R1, R2, iterations=10):
+        self.J1 = J1
+        self.J2 = J2
+        self.h = h
+        self.R1 = R1
+        self.R2 = R2
+        self.iterations = iterations
+        self.params_set = True
+    def run(self):
+        if not self.params_set:
+            raise AttributeError("Params not set! set params before running and experiment.")
+
+        self.iterate()
+        self.save_gif()
+        self.it += 1
+        print("Ran, saved gif.")
+
+    def to_html(self):
+        with open('html/{}.html'.format(self.id), 'w') as f:
+            f.write(str(self.soup))
+default_experiment = [1., -.1, 0, 6, 2]
 
 
 if __name__ == '__main__':
-    experiment = AICAExperiment("test_experiment", 30, 1., -.1, 0, 6, 2)
+    experiment = AICAExperiment("test_experiment", 30)
+    experiment.set_params(*default_experiment)
+    experiment.run()
+    experiment.set_params(*[1., -.2, 0, 6, 2])
+    experiment.run()
+    experiment.to_html()
 
 
-
-    experiment.iterate_and_save(2)
