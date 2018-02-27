@@ -146,6 +146,8 @@ class AICAExperiment:
                 break
             i += 1
 
+
+
     def reset_experiment(self):
         self.images = []
         self.cells = self.random_cells()
@@ -158,12 +160,33 @@ class AICAExperiment:
         self.R2 = R2
         self.iterations = iterations
         self.params_set = True
+
+    def spacial_correlation(self, l):
+        print("Calculating spacial correlation for l = {}.".format(l))
+        if l == 0:
+            pair_summation = 1
+        else:
+            pair_summation = 0
+
+            for i in self.iter_cells():
+                for j in self.iter_cells():
+                    if(i[0] != j[0] or j[1] > i[1]):
+                        #Avoid duplicates.
+                        pair_summation += self[i] * self[j]
+            pair_summation *= (2 / (self.N**2*4*l))
+
+        cells_sum = self.cells.sum().sum().astype('') #Call sum twice to collapse both axis.
+        subtract_term = (cells_sum*(1/(self.N**2)))**2
+        return pair_summation - subtract_term
+
+
     def run(self):
         if not self.params_set:
             raise AttributeError("Params not set! set params before running and experiment.")
 
         self.iterate()
         self.save_gif()
+        print("Spatial correlation 5:" + self.spacial_correlation(5))
         self.it += 1
         print("Ran, saved gif.")
 
@@ -177,6 +200,6 @@ if __name__ == '__main__':
     experiment = AICAExperiment("test_experiment", 30)
     experiment.set_params(*default_experiment)
     experiment.run()
-    experiment.to_html()
+
 
 
